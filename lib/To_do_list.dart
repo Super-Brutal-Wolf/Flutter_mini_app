@@ -39,11 +39,7 @@ class ToDoScreen extends StatelessWidget {
                   () => {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder:
-                            (context) =>
-                                DetailScreen(todolist: todolist[index]),
-                      ),
+                      MaterialPageRoute(builder: (context) => DetailScreen(), settings: RouteSettings(arguments: todolist[index])),
                     ),
                   },
             ),
@@ -53,17 +49,16 @@ class ToDoScreen extends StatelessWidget {
 }
 
 class DetailScreen extends StatelessWidget {
-  const DetailScreen({super.key, required this.todolist});
-
-  final Todo todolist;
+  const DetailScreen({super.key,});
 
   @override
   Widget build(BuildContext context) {
+    final todo = ModalRoute.of(context)!.settings.arguments as Todo;
     return Scaffold(
-      appBar: AppBar(title: Text(todolist.title)),
+      appBar: AppBar(title: Text(todo.title)),
       body: Padding(
         padding: EdgeInsets.all(16),
-        child: Text(todolist.description),
+        child: Text(todo.description),
       ),
     );
   }
